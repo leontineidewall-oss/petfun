@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pet.fun · every coin hatches a pet</title>
+<meta name="description" content="A pump.fun launchpad where every coin hatches a pet. Creator fees are its food: every meal buys the coin back and burns it. Skip a day and it dies. Paste any pump.fun coin to see its pet.">
+<meta name="theme-color" content="#e3e8cf">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="pet.fun">
+<meta property="og:title" content="pet.fun · every coin hatches a pet">
+<meta property="og:description" content="Creator fees are its food: every meal buys back and burns the coin. Paste any pump.fun coin to see its pet.">
+<meta property="og:url" content="https://petfun.vercel.app/">
+<meta property="og:image" content="https://petfun.vercel.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="pet.fun · every coin hatches a pet">
+<meta name="twitter:description" content="Creator fees are its food. Paste any pump.fun coin to see its pet.">
+<meta name="twitter:image" content="https://petfun.vercel.app/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%208%208%22%20shape-rendering%3D%22crispEdges%22%3E%3Crect%20width%3D%228%22%20height%3D%228%22%20rx%3D%221.6%22%20fill%3D%22%23cdd6a8%22/%3E%3Cpath%20fill%3D%22%231e2418%22%20d%3D%22M1%201h4v1h1v2h-1v1h-3v2h-1zM2%202v2h3v-2z%22/%3E%3Cpath%20fill%3D%22%23f6b714%22%20d%3D%22M6%204h1v1h-1z%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800;900&family=JetBrains+Mono:wght@500;700&family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e3e8cf; --grid:#d6dcbc; --ink:#1e2418; --ink2:#465238; --mute:#5c6450; --mute2:#7b8468;
+  --card:#f7f9ee; --lcd:#cdd6a8; --lcd2:#c3cd9b; --gold:#f6b714; --gold2:#d68c00; --red:#b3462e; --line:#cfd6b4;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --pix:"Silkscreen","JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{overflow-x:hidden;scroll-behavior:smooth}
+body{margin:0;overflow-x:clip;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:16px 16px;opacity:.5;z-index:0}
+main,nav,footer{position:relative;z-index:1}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding-left:24px;padding-right:24px}
+section[id],#device{scroll-margin-top:84px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(227,232,207,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid transparent}
+nav.stuck{border-bottom-color:var(--line)}
+nav .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:21px;letter-spacing:-.03em}
+.brand svg{width:30px;height:30px;display:block}
+.navlinks{display:flex;gap:22px;margin-left:auto;font-weight:600;font-size:15px}
+.navlinks a{text-decoration:none;color:var(--mute)}
+.navlinks a:hover{color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--mono);background:var(--ink);color:#e9eed2;border-radius:999px;padding:6px 12px 6px 10px;white-space:nowrap}
+.pill i{width:8px;height:8px;background:var(--gold);display:inline-block}
+
+/* hero */
+.hero{padding-top:36px;padding-bottom:28px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center}
+h1{font-weight:900;font-size:clamp(44px,5.8vw,74px);line-height:.98;letter-spacing:-.045em;margin:18px 0 18px}
+h1 em{font-style:normal;background:linear-gradient(transparent 60%,var(--gold) 60%,var(--gold) 92%,transparent 92%)}
+.lede{font-size:19px;color:var(--mute);max-width:520px;margin:0 0 26px}
+.lede b{color:var(--ink);font-weight:600}
+form.hatch{display:flex;gap:8px;max-width:540px;background:var(--card);border-radius:16px;padding:6px;box-shadow:0 1px 0 #fff inset,0 10px 30px rgba(60,70,30,.12),0 1px 3px rgba(60,70,30,.12)}
+form.hatch input{flex:1;min-width:0;border:0;background:transparent;font:500 15px var(--mono);color:var(--ink);padding:12px 12px;outline:none}
+form.hatch input::placeholder{color:var(--mute2)}
+.btn{appearance:none;border:0;cursor:pointer;font:700 15px var(--sans);border-radius:11px;padding:12px 18px;background:var(--ink);color:#f2f5e4;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:#2e3824}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn.gold:hover{background:#ffc62e}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.ghost:hover{background:rgba(30,36,24,.06)}
+.btn[disabled],.btn[aria-disabled=true]{opacity:.45;pointer-events:none}
+.subacts{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.linkbtn{appearance:none;background:none;border:0;padding:0;font:600 15px var(--sans);color:var(--ink);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:var(--gold);cursor:pointer}
+.status{font:500 14px var(--mono);color:var(--mute);min-height:22px;margin-top:12px}
+.status.err{color:var(--red)}
+
+/* device */
+.device{background:var(--card);border-radius:28px;padding:18px;box-shadow:0 1px 0 #fff inset,0 24px 60px rgba(60,70,30,.2),0 2px 8px rgba(60,70,30,.12)}
+.screen{position:relative;background:radial-gradient(circle at 50% 35%,#dde5bd 0%,var(--lcd) 70%);border-radius:16px;overflow:hidden;box-shadow:inset 0 2px 0 rgba(0,0,0,.06),inset 0 0 0 1px rgba(30,36,24,.08)}
+.screen:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(30,36,24,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,36,24,.05) 1px,transparent 1px);background-size:8px 8px;pointer-events:none}
+.lcdtop{position:relative;display:flex;justify-content:space-between;align-items:center;padding:12px 14px 0;font:13px var(--pix);color:var(--ink);gap:10px}
+.lcdtop .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hearts{display:flex;gap:5px;flex:none}
+.hearts i{width:14px;height:12px;background:#e2604a;clip-path:polygon(0 25%,25% 0,50% 25%,75% 0,100% 25%,100% 55%,50% 100%,0 55%)}
+.hearts i.e{background:rgba(30,36,24,.16)}
+#petStage{position:relative;height:260px;cursor:pointer;touch-action:manipulation}
+#petStage svg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+#petStage:focus-visible{outline:3px solid var(--gold);outline-offset:-3px;border-radius:12px}
+.bob{animation:bob 1.3s steps(2,end) infinite}
+@keyframes bob{50%{transform:translateY(-.5px)}}
+#petStage g{transform-box:fill-box}
+.wob{animation:wob 2.4s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes wob{0%,100%{transform:rotate(0)}40%{transform:rotate(0)}50%{transform:rotate(-5deg)}60%{transform:rotate(5deg)}70%{transform:rotate(0)}}
+.bubble{position:absolute;left:calc(50% + 58px);top:12px;font:12px var(--pix);background:var(--card);color:var(--ink);padding:6px 10px;border-radius:8px;box-shadow:0 0 0 2px var(--ink);white-space:nowrap}
+.bubble:after{content:"";position:absolute;left:10px;bottom:-8px;border:5px solid transparent;border-top-color:var(--ink);border-right-color:var(--ink)}
+.pop{position:absolute;width:14px;height:12px;background:#e2604a;clip-path:polygon(0 25%,25% 0,50% 25%,75% 0,100% 25%,100% 55%,50% 100%,0 55%);animation:pop 900ms ease-out forwards;pointer-events:none}
+@keyframes pop{from{transform:translate(0,0) scale(.6);opacity:1}to{transform:translate(var(--dx),-70px) scale(1.2);opacity:0}}
+.coinfly{animation:fly 1.1s cubic-bezier(.3,.1,.4,1) forwards}
+@keyframes fly{from{transform:translate(18px,-10px);opacity:0}25%{opacity:1}to{transform:translate(0,0);opacity:1}}
+.readout{padding:16px 6px 4px}
+.lvl{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:700 15px var(--mono)}
+.lvl span{color:var(--mute2);font-weight:500;font-size:13px;text-align:right}
+.lvl #lvlName{text-align:left;white-space:nowrap;flex:none}
+.meter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin:10px 0 4px}
+.meter div{height:12px;border-radius:4px;background:#dfe5c9;overflow:hidden;position:relative}
+.meter div i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--gold);box-shadow:inset -2px 0 0 var(--gold2)}
+.ticks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;font:500 11px var(--mono);color:var(--mute2)}
+.ticks span{text-align:right}
+.rows{margin-top:10px}
+.row{display:flex;justify-content:space-between;gap:12px;font:500 14px var(--mono);color:var(--mute);padding:7px 0;border-top:1px dashed var(--line)}
+.row b{color:var(--ink);font-weight:700;text-align:right}
+.row b.warn{color:var(--red)}
+.foot{font:500 12px var(--mono);color:var(--mute2);margin-top:8px}
+.acts{display:flex;gap:8px;margin-top:14px}
+.acts .btn{flex:1;justify-content:center;font-size:14px;padding:11px 12px}
+
+/* nursery */
+.nursery{padding-top:8px;padding-bottom:8px}
+.nhead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.nhead .kick{margin:0}
+.ngrid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}
+.ntile{appearance:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;background:var(--card);border-radius:16px;padding:8px 8px 10px;box-shadow:0 1px 0 #fff inset,0 6px 18px rgba(60,70,30,.08);transition:transform .15s ease,box-shadow .15s ease;min-width:0}
+.ntile:hover{transform:translateY(-2px);box-shadow:0 1px 0 #fff inset,0 10px 24px rgba(60,70,30,.14)}
+.ntile[aria-pressed=true]{box-shadow:0 0 0 2.5px var(--ink),0 10px 24px rgba(60,70,30,.14)}
+.ntile:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.nscr{background:var(--lcd);border-radius:10px;aspect-ratio:1/1;display:grid;place-items:center;padding:8px}
+.nscr svg{width:100%;height:100%;display:block}
+.nsym{font:700 13px var(--mono);margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nlv{font:500 11px var(--mono);color:var(--mute2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ntile.sk{height:124px;cursor:default;background:linear-gradient(90deg,var(--card),#eef2de,var(--card));background-size:200% 100%;animation:sk 1.2s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.nursery.off .ngrid{display:none}
+.screen.fx{animation:fx .5s ease-out}
+@keyframes fx{0%{filter:brightness(1.6)}20%{transform:translateX(-3px)}40%{transform:translateX(3px)}60%{transform:translateX(-2px)}100%{filter:none;transform:none}}
+
+/* sections */
+.sec{padding-top:76px;padding-bottom:20px}
+.kick{font:600 13px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute2);margin:0 0 10px}
+h2{font-weight:900;font-size:clamp(34px,4.4vw,52px);line-height:1.02;letter-spacing:-.04em;margin:0 0 28px}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:var(--card);border-radius:22px;padding:24px;box-shadow:0 1px 0 #fff inset,0 10px 30px rgba(60,70,30,.08)}
+.card .ic{width:64px;height:64px;background:var(--lcd);border-radius:14px;display:grid;place-items:center;margin-bottom:16px}
+.card .ic svg{width:44px;height:44px;display:block}
+.card h3{margin:0 0 8px;font-size:21px;letter-spacing:-.02em}
+.card p{margin:0;color:var(--mute);font-size:16px}
+.card .n{font:700 13px var(--mono);color:var(--mute2);margin-bottom:6px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{background:var(--card);border-radius:18px;padding:20px 20px 18px;box-shadow:0 1px 0 #fff inset,0 6px 20px rgba(60,70,30,.07)}
+.tile .k{font:600 12px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--mute2)}
+.tile .v{font-weight:900;font-size:34px;letter-spacing:-.04em;line-height:1.1;margin:8px 0 6px}
+.tile p{margin:0;color:var(--mute);font-size:15px}
+.math{margin-top:16px;background:var(--ink);color:#e9eed2;border-radius:22px;padding:24px 26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:center}
+.math h3{margin:0;font-size:22px;letter-spacing:-.02em;color:#fff}
+.math p{margin:6px 0 0;color:#b9c29c;font-size:15px}
+.math ol{margin:0;padding:0;list-style:none;font:500 14.5px var(--mono)}
+.math li{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-top:1px dashed rgba(233,238,210,.18)}
+.math li:first-child{border-top:0}
+.math li b{color:var(--gold)}
+table.can{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border-radius:22px;overflow:hidden;box-shadow:0 1px 0 #fff inset,0 10px 30px rgba(60,70,30,.08)}
+table.can th,table.can td{text-align:left;padding:15px 20px;vertical-align:top;font-size:16px}
+table.can th{font:600 12px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--mute2);background:#eef2de}
+table.can td{border-top:1px solid #e6ebd3}
+table.can td:first-child{color:var(--mute);width:44%}
+.faq details{background:var(--card);border-radius:16px;padding:0 20px;margin-bottom:10px;box-shadow:0 1px 0 #fff inset,0 6px 20px rgba(60,70,30,.06)}
+.faq summary{cursor:pointer;font-weight:700;font-size:17px;padding:17px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font:700 20px var(--mono);color:var(--mute2)}
+.faq details[open] summary:after{content:"-"}
+.faq details p{margin:0 0 18px;color:var(--mute)}
+.close{margin-top:76px;background:var(--gold);border-radius:28px;padding:40px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
+.close h2{margin:0}
+.close p{margin:8px 0 0;color:#5a4a10;font-size:17px}
+footer{padding-top:40px;padding-bottom:48px;color:var(--mute);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px}
+footer a{color:var(--ink)}
+footer .l{display:flex;gap:18px;flex-wrap:wrap}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.rv.vis{opacity:1;transform:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:32px}
+  .cards3,.tiles{grid-template-columns:minmax(0,1fr)}
+  .ngrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .math{grid-template-columns:minmax(0,1fr)}
+  .navlinks{display:none}
+  nav .pill{margin-left:auto}
+  .close{grid-template-columns:minmax(0,1fr);padding:28px}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .wrap{padding-left:16px;padding-right:16px}
+  .hero{padding-top:34px}
+  form.hatch{flex-wrap:wrap}
+  form.hatch input{flex-basis:100%}
+  form.hatch .btn{flex:1;justify-content:center}
+  #petStage{height:230px}
+  .bubble{left:auto;right:12px}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tile .v{font-size:28px}
+  table.can th,table.can td{padding:12px 14px;font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .bob,.wob,.coinfly,.pop,.ntile.sk,.screen.fx{animation:none!important}
+  .ntile{transition:none}
+  .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+  <a class="brand" href="#top" aria-label="pet.fun home"><svg id="brandMark" viewBox="-2 -2 28 28" aria-hidden="true" shape-rendering="crispEdges"><rect x="-2" y="-2" width="28" height="28" rx="6" fill="#cdd6a8"/></svg><span class="t">pet.fun</span></a>
+  <div class="navlinks"><a href="#how">How it works</a><a href="#rules">Rules</a><a href="#faq">FAQ</a></div>
+  <span class="pill"><i></i>not live yet · preview</span>
+</div></nav>
+
+<main id="top">
+<section class="hero" id="hatch"><div class="wrap">
+  <div>
+    <span class="pill"><i></i>pump.fun launchpad</span>
+    <h1>every coin<br>hatches a <em>pet.</em></h1>
+    <p class="lede">Creator fees are its food: <b>every meal buys the coin back and burns it.</b> Feed it and it grows. Skip a day and it dies.</p>
+    <form class="hatch" id="hatchForm" autocomplete="off">
+      <label class="sr" for="caIn">pump.fun coin address or link</label>
+      <input id="caIn" name="ca" spellcheck="false" placeholder="paste any pump.fun coin address">
+      <button class="btn" type="submit">Hatch</button>
+    </form>
+    <div class="subacts"><button class="linkbtn" type="button" id="randBtn">or hatch a random live coin</button><span class="foot">works with any coin already on pump.fun</span></div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="device" id="device">
+    <div class="screen">
+      <div class="lcdtop"><span class="nm" id="lcdName">no coin yet</span><span class="hearts" id="hearts" aria-label="hunger"><i class="e"></i><i class="e"></i><i class="e"></i></span></div>
+      <div id="petStage" tabindex="0" role="img" aria-label="a pet waiting for a coin"><div class="bubble" id="bubble">paste a coin</div></div>
+    </div>
+    <div class="readout">
+      <div class="lvl"><span id="lvlName" style="color:var(--ink);font-weight:700;font-size:15px">level —</span><span id="lvlNext">—</span></div>
+      <div class="meter" aria-hidden="true"><div><i id="m0"></i></div><div><i id="m1"></i></div><div><i id="m2"></i></div></div>
+      <div class="ticks"><span>1 SOL · egg</span><span>10 · baby</span><span>100 · grown</span></div>
+      <div class="rows">
+        <div class="row"><span>fed in last 24h (est.)</span><b id="rFood">—</b></div>
+        <div class="row"><span>creator fee now</span><b id="rRate">—</b></div>
+        <div class="row"><span>24h volume</span><b id="rVol">—</b></div>
+        <div class="row"><span>market cap</span><b id="rCap">—</b></div>
+        <div class="row"><span>last meal</span><b id="rMeal">—</b></div>
+        <div class="row"><span>pool age</span><b id="rAge">—</b></div>
+      </div>
+      <div class="foot" id="rSrc">preview · the numbers appear once a coin hatches</div>
+      <div class="acts"><a class="btn gold" id="shareBtn" aria-disabled="true" target="_blank" rel="noopener" href="#hatch">Share its pet</a><a class="btn ghost" id="chartBtn" aria-disabled="true" target="_blank" rel="noopener" href="#hatch">Open chart</a></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="nursery" id="nursery"><div class="wrap">
+  <div class="nhead"><p class="kick">The nursery · live</p><span class="foot" id="nNote">hatching today's pets...</span></div>
+  <div class="ngrid" id="nGrid"><div class="ntile sk"></div><div class="ntile sk"></div><div class="ntile sk"></div><div class="ntile sk"></div><div class="ntile sk"></div><div class="ntile sk"></div><div class="ntile sk"></div><div class="ntile sk"></div></div>
+</div></section>
+
+<section class="sec" id="how"><div class="wrap">
+  <p class="kick">How it works</p>
+  <h2 class="rv">A coin you have to keep alive.</h2>
+  <div class="cards3">
+    <div class="card rv"><div class="ic"><svg class="icn" data-icon="egg" aria-hidden="true" shape-rendering="crispEdges"></svg></div><div class="n">01 · hatch</div><h3>Launch, and an egg appears</h3><p>Coins launch on pump.fun through pet.fun. pet.fun is set as the creator, so 100% of the creator fees belong to the pet, not a dev.</p></div>
+    <div class="card rv"><div class="ic"><svg class="icn" data-icon="coin" aria-hidden="true" shape-rendering="crispEdges"></svg></div><div class="n">02 · feed</div><h3>Fees are its food</h3><p>Every 10 minutes the fees are claimed and spent buying the coin back. The bought coins are burned. That is a meal, and every meal is posted with its transaction.</p></div>
+    <div class="card rv"><div class="ic"><svg class="icn" data-icon="grave" aria-hidden="true" shape-rendering="crispEdges"></svg></div><div class="n">03 · grow or starve</div><h3>Grow up, or become a gravestone</h3><p>1 SOL eaten lays the egg, 10 hatches a baby, 100 makes it grown. 24 hours without a meal and it dies. Holders lose nothing but the pet.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="rules"><div class="wrap">
+  <p class="kick">Rules</p>
+  <h2 class="rv">Six numbers.</h2>
+  <div class="tiles">
+    <div class="tile rv"><div class="k">Food</div><div class="v">100%</div><p>of the coin's creator fees go to meals.</p></div>
+    <div class="tile rv"><div class="k">Meal time</div><div class="v">10 min</div><p>fees are claimed and spent on a buyback, then burned.</p></div>
+    <div class="tile rv"><div class="k">pet.fun cut</div><div class="v">0%</div><p>nothing is skimmed off a meal.</p></div>
+    <div class="tile rv"><div class="k">Levels</div><div class="v">1 · 10 · 100</div><p>SOL eaten for egg, baby and grown.</p></div>
+    <div class="tile rv"><div class="k">Starves after</div><div class="v">24h</div><p>without a single meal. A dead pet stays dead.</p></div>
+    <div class="tile rv"><div class="k">Creator fee</div><div class="v">0.05–0.95%</div><p>set by pump.fun, not us: 0.30% on the curve, then tiered by market cap.</p></div>
+  </div>
+  <div class="math rv">
+    <div><h3>How fast does a pet grow?</h3><p>A coin trading 500 SOL a day on the bonding curve, where the creator fee is 0.30%.</p></div>
+    <ol>
+      <li><span>500 SOL × 0.30%</span><b>1.5 SOL a day</b></li>
+      <li><span>day 1 · 1.5 SOL eaten</span><b>egg</b></li>
+      <li><span>day 7 · 10.5 SOL eaten</span><b>baby</b></li>
+      <li><span>day 67 · 100.5 SOL eaten</span><b>grown</b></li>
+    </ol>
+  </div>
+</div></section>
+
+<section class="sec" id="honest"><div class="wrap">
+  <p class="kick">What it cannot do</p>
+  <h2 class="rv">The fine print, up front.</h2>
+  <table class="can rv">
+    <thead><tr><th>it cannot</th><th>so it</th></tr></thead>
+    <tbody>
+      <tr><td>run without a wallet that pet.fun controls. The creator wallet's keys sit on a server.</td><td>posts every claim, buyback and burn with its transaction, from one public wallet.</td></tr>
+      <tr><td>refund anyone when a pet dies.</td><td>makes death cost holders nothing. A gravestone is the story, not a penalty.</td></tr>
+      <tr><td>set the fee rate. pump.fun does, and it falls as market cap grows.</td><td>shows which tier applies right now, using pump.fun's own fee table.</td></tr>
+      <tr><td>see a coin's lifetime fees in this preview.</td><td>estimates the last 24 hours: volume × today's fee tier, labelled "est." everywhere.</td></tr>
+      <tr><td>exist yet. pet.fun is not live.</td><td>hatches pets for coins already on pump.fun as a preview. No pet.fun coin exists, so any coin claiming to be one is not ours.</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section class="sec faq" id="faq"><div class="wrap">
+  <p class="kick">FAQ</p>
+  <h2 class="rv">Questions.</h2>
+  <details><summary>Is pet.fun live?</summary><p>Not yet. The box at the top is a preview: paste any coin already on pump.fun and it shows the pet that coin would have, using its real trading data from DexScreener. The nursery shows pets for pump.fun coins trending on DexScreener right now.</p></details>
+  <details><summary>How is "fed in last 24h" worked out?</summary><p>24h volume in USD, divided by the SOL price, times the creator fee pump.fun charges at the coin's current market cap (0.30% on the bonding curve, 0.95% down to 0.05% on PumpSwap). The real fee depends on the market cap at each trade, so it is an estimate.</p></details>
+  <details><summary>Why does the preview use 24 hours?</summary><p>Public data only gives the last 24 hours of volume. A real pet.fun pet counts every meal since launch, so it only ever grows. Its hunger is the part that resets.</p></details>
+  <details><summary>Does a dead pet hurt holders?</summary><p>No. Nothing is taken from wallets. The pet turns into a gravestone on the chart and stays one. Coins already burned stay burned.</p></details>
+  <details><summary>Does every coin look different?</summary><p>Yes. The pet's colour, cheeks and sprout come from the coin's address, so each coin always hatches the same pet.</p></details>
+  <details><summary>What happens when a coin graduates?</summary><p>Meals keep going on PumpSwap. The creator fee there starts at 0.95% and falls as the market cap rises, so big coins eat a smaller share of a bigger volume.</p></details>
+</div></section>
+
+<div class="wrap"><div class="close rv">
+  <div><h2>Every coin deserves a pet.</h2><p>Paste one and meet it. The page updates every 30 seconds.</p></div>
+  <a class="btn" href="#hatch" id="closeBtn">Hatch a pet</a>
+</div></div>
+</main>
+
+<footer><div class="wrap">
+  <div>pet.fun · a preview. Not financial advice.</div>
+  <div class="l"><a href="https://pump.fun/docs/fees" target="_blank" rel="noopener">pump.fun fee table</a><a href="https://docs.dexscreener.com/api/reference" target="_blank" rel="noopener">data: DexScreener</a><a href="https://github.com/leontineidewall-oss/petfun" target="_blank" rel="noopener">GitHub</a><span>X —</span></div>
+</div></footer>
+
+<script>
+(function () {
+  "use strict";
+  var TIERS = [[420, 0.3], [1470, 0.95], [2460, 0.9], [3440, 0.85], [4420, 0.8], [9820, 0.75], [14740, 0.7], [19650, 0.65], [24560, 0.6], [29470, 0.55], [34380, 0.5], [39300, 0.45], [44210, 0.4], [49120, 0.35], [54030, 0.3], [58940, 0.275], [63860, 0.25], [68770, 0.225], [73681, 0.2], [78590, 0.175], [83500, 0.15], [88400, 0.125], [93330, 0.1], [98240, 0.075], [Infinity, 0.05]];
+  var BODIES = ["#1e2418", "#22304a", "#3a2440", "#1d3a30", "#4a2a1c", "#153843", "#34321a", "#2b2b36"];
+  var CHEEKS = ["#e27860", "#e2609a", "#f09a3e", "#d86a8a"];
+  var SPROUTS = ["leaf", "antenna", "curl", "tuft"];
+  var STAGES = ["nest", "egg", "baby", "grown"];
+
+  // ---------- pure helpers (exposed for tests) ----------
+  function creatorRate(dex, mcapSol) {
+    if (dex === "pumpfun") return 0.3;
+    if (mcapSol == null || !isFinite(mcapSol)) return null;
+    for (var i = 0; i < TIERS.length; i++) if (mcapSol < TIERS[i][0]) return TIERS[i][1];
+    return 0.05;
+  }
+  function estFood(c) {
+    if (!c || !c.solUsd || c.volumeUsd == null || c.volumeUsd.h24 == null) return null;
+    var mcapSol = c.marketCapUsd != null ? c.marketCapUsd / c.solUsd : null;
+    var r = creatorRate(c.dex, mcapSol);
+    if (r == null) return null;
+    return (c.volumeUsd.h24 / c.solUsd) * r / 100;
+  }
+  function stageOf(food) {
+    if (food == null) return null;
+    return food >= 100 ? 3 : food >= 10 ? 2 : food >= 1 ? 1 : 0;
+  }
+  function hungerOf(c, now) {
+    var t = c.txns || {};
+    if (t.m5 > 0) return { hearts: 3, label: "eating right now", say: "nom." };
+    if (t.h1 > 0) return { hearts: 3, label: "this hour", say: "full." };
+    if (t.h6 > 0) return { hearts: 2, label: "in the last 6h", say: "content." };
+    if (t.h24 > 0) return { hearts: 1, label: "today · getting hungry", say: "hungry..." };
+    if (c.createdAt && now - c.createdAt > 864e5) return { hearts: 0, label: "none in 24h · starved", say: "rip.", dead: true };
+    return { hearts: 1, label: "waiting for a first meal", say: "feed me." };
+  }
+  function hash(s) {
+    var h = 2166136261;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return h >>> 0;
+  }
+  function traits(ca) {
+    var h = hash(ca);
+    return { body: BODIES[h % BODIES.length], cheek: CHEEKS[(h >>> 4) % CHEEKS.length], sprout: SPROUTS[(h >>> 8) % SPROUTS.length] };
+  }
+  function progress(food) {
+    // fill of the three meter segments: [0,1], [1,10], [10,100]
+    var f = Math.max(0, food || 0), b = [[0, 1], [1, 10], [10, 100]];
+    return b.map(function (s) { return Math.max(0, Math.min(1, (f - s[0]) / (s[1] - s[0]))); });
+  }
+  function fmtSol(x) {
+    if (x == null || !isFinite(x)) return "—";
+    if (x > 0 && x < 0.01) return "<0.01 SOL";
+    var d = x < 10 ? 2 : x < 100 ? 1 : 0;
+    return x.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) + " SOL";
+  }
+  function fmtUsd(x) {
+    if (x == null || !isFinite(x)) return "—";
+    var a = Math.abs(x);
+    if (a >= 1e9) return "$" + (x / 1e9).toFixed(2) + "B";
+    if (a >= 1e6) return "$" + (x / 1e6).toFixed(2) + "M";
+    if (a >= 1e3) return "$" + (x / 1e3).toFixed(1) + "k";
+    return "$" + x.toFixed(0);
+  }
+  function fmtPct(p) {
+    if (p == null) return "—";
+    var s = p.toFixed(3).replace(/0$/, "");
+    return s + "%";
+  }
+  function fmtAge(ms) {
+    if (ms == null || !isFinite(ms) || ms < 0) return "—";
+    var m = Math.floor(ms / 6e4);
+    if (m < 60) return m + "m";
+    var h = Math.floor(m / 60);
+    if (h < 48) return h + "h " + (m % 60) + "m";
+    return Math.floor(h / 24) + "d";
+  }
+  function extractCa(text) {
+    var m = String(text || "").match(/[1-9A-HJ-NP-Za-km-z]{32,44}/g);
+    if (!m) return null;
+    for (var i = 0; i < m.length; i++) if (/pump$/.test(m[i])) return m[i];
+    return m[m.length - 1];
+  }
+  window.PET = { creatorRate: creatorRate, estFood: estFood, stageOf: stageOf, hungerOf: hungerOf, traits: traits, progress: progress, fmtSol: fmtSol, fmtUsd: fmtUsd, fmtPct: fmtPct, fmtAge: fmtAge, extractCa: extractCa };
+
+  // ---------- sprites ----------
+  function grid(W, H) { var g = []; for (var y = 0; y < H; y++) { g.push([]); for (var x = 0; x < W; x++) g[y].push(0); } return g; }
+  function creature(o) {
+    var g = grid(o.W, o.H), x, y, mouth = [];
+    for (y = 0; y < o.H; y++) for (x = 0; x < o.W; x++) {
+      var px = x + .5, py = y + .5, d = Math.hypot(px - o.cx, py - o.cy);
+      if (d <= o.ro) g[y][x] = 1;
+      if (d <= o.ri) g[y][x] = 2;
+      if (x >= o.sx0 && x <= o.sx1 && y >= o.sy0 && y <= o.sy1) g[y][x] = 1;
+    }
+    o.foot.forEach(function (r) { for (x = r[1]; x <= r[2]; x++) g[r[0]][x] = 1; });
+    for (y = 0; y < o.H; y++) for (x = 0; x < o.W; x++) {
+      var qx = x + .5, qy = y + .5, a = Math.atan2(qy - o.cy, qx - o.cx) * 180 / Math.PI, dd = Math.hypot(qx - o.cx, qy - o.cy);
+      if (a >= 8 && a <= 42 && dd > o.ri + .6 && g[y][x] === 1) { g[y][x] = 0; mouth.push([x, y]); }
+      if (g[y][x] === 1 && dd > o.ro - 1.6 && dd <= o.ro && a >= -150 && a <= -95) g[y][x] = 5;
+    }
+    for (y = o.sy0 + 2; y < o.sy1 - 1; y++) if (g[y][o.sx0 + 1] === 1) g[y][o.sx0 + 1] = 5;
+    o.cheek.forEach(function (c) { g[c[1]][c[0]] = 4; });
+    return { g: g, W: o.W, H: o.H, mouth: mouth, pupil: o.pupil, top: o.top, mouthAt: o.mouthAt };
+  }
+  var GROWN = creature({ W: 22, H: 24, cx: 11, cy: 9, ro: 7.4, ri: 3.5, sx0: 3, sx1: 6, sy0: 6, sy1: 21, foot: [[21, 3, 8], [22, 2, 8]], cheek: [[13, 13], [14, 13]], pupil: [11, 8], top: 11, mouthAt: [17, 11] });
+  var BABY = creature({ W: 15, H: 17, cx: 7.6, cy: 7.2, ro: 5.1, ri: 2.3, sx0: 2, sx1: 4, sy0: 5, sy1: 15, foot: [[15, 2, 6], [16, 1, 6]], cheek: [[9, 9]], pupil: [7, 6], top: 7, mouthAt: [12, 8] });
+  var SPROUT = {
+    leaf: [[-2, 0], [-1, 0], [1, 0], [2, 0], [-1, 1], [0, 1], [1, 1]],
+    antenna: [[0, 1], [0, 0, "g"], [-1, 0, "g"], [1, 0, "g"]],
+    curl: [[0, 1], [0, 0], [1, 0], [2, 0], [2, 1, "g"]],
+    tuft: [[-2, 1], [-1, 0], [0, 1], [0, 0], [1, 0], [2, 1]]
+  };
+  var EGG = ["...####...", "..#wwww#..", ".#wwwsww#.", ".#wwwwww#.", "#wswwwwww#", "#wwwwwsww#", "#wwwswwww#", "#wwwwwwws#", "#wswwwwww#", ".#wwwwsw#.", "..#wwww#..", "...####..."];
+  var CRACK = [[3, 3], [4, 4], [5, 3], [6, 4]];
+  var GRAVE = ["...######...", "..#ssssss#..", ".#sssss#sss#", ".#sss#####s#", ".#sssss#sss#", ".#sssss#sss#", ".#ssssssss#.", ".#ssssssss#.", ".#ssssssss#.", ".#ssssssss#.", ".##########.", "mmmmmmmmmmmm"];
+  var COIN = [".####.", "##hh##", "#h#d##", "##hd##", "##ddd#", ".####."];
+
+  function shade(hex, amt) {
+    var n = parseInt(hex.slice(1), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    r = Math.round(r + (255 - r) * amt); g = Math.round(g + (255 - g) * amt); b = Math.round(b + (255 - b) * amt);
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  }
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function rect(parent, x, y, fill, cls) {
+    var r = document.createElementNS(SVGNS, "rect");
+    r.setAttribute("x", x + .06); r.setAttribute("y", y + .06); r.setAttribute("width", .88); r.setAttribute("height", .88); r.setAttribute("fill", fill);
+    if (cls) r.setAttribute("class", cls);
+    parent.appendChild(r); return r;
+  }
+  function el(name, attrs, parent) { var e = document.createElementNS(SVGNS, name); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+
+  // ---------- pet scene ----------
+  var VW = 40, VH = 30, GROUND = 27;
+  var VIEW = { grown: [40, 30], baby: [31, 23.25], egg: [26, 19.5], nest: [26, 19.5], grave: [26, 19.5] };
+  var stageEl = document.getElementById("petStage");
+  var bubble = document.getElementById("bubble");
+  var scene = { kind: "grown", tr: { body: "#1e2418", cheek: "#e27860", sprout: "leaf" }, eating: false, dead: false };
+  var svg, petG, eyeCells = [], pupilRects = [], mouthRects = [], base = null, pOff = [0, 0], sprRef = null, blinkT = null, chompT = null, coinT = null;
+
+  function draw() {
+    if (svg) svg.remove();
+    var vv = VIEW[scene.kind] || VIEW.grown; VW = vv[0]; VH = vv[1]; GROUND = Math.floor(VH) - 3;
+    clearTimeout(blinkT); clearInterval(chompT); clearInterval(coinT);
+    svg = el("svg", { viewBox: "0 0 " + VW + " " + VH, "shape-rendering": "crispEdges", "aria-hidden": "true" });
+    // ground
+    for (var gx = 0; gx < VW; gx++) rect(svg, gx, GROUND + 1, "rgba(30,36,24,.14)");
+    [[6, 1], [7, 2], [8, 1], [30, 1], [31, 2], [32, 1], [17, 1], [18, 1]].forEach(function (t) { for (var k = 0; k < t[1]; k++) rect(svg, t[0], GROUND - k, "rgba(30,36,24,.22)"); });
+    var shadowG = el("g", { transform: "translate(.55,.55)", opacity: ".16" }, svg);
+    petG = el("g", {}, svg);
+    eyeCells = []; pupilRects = []; mouthRects = []; sprRef = null;
+    var tr = scene.tr, body = tr.body, hi = shade(body, .22);
+    var ox, oy, x, y;
+    if (scene.kind === "grown" || scene.kind === "baby") {
+      var S = scene.kind === "grown" ? GROWN : BABY;
+      sprRef = S;
+      var last = 0; for (y = 0; y < S.H; y++) for (x = 0; x < S.W; x++) if (S.g[y][x]) last = y;
+      ox = Math.floor((VW - S.W) / 2) - 1; oy = GROUND - last;
+      base = [ox, oy];
+      var sp = SPROUT[tr.sprout] || SPROUT.leaf;
+      sp.forEach(function (c) { var X = ox + S.top + c[0], Y = oy + c[1]; rect(shadowG, X, Y, "#1e2418"); rect(petG, X, Y, c[2] === "g" ? "#f6b714" : body); });
+      for (y = 0; y < S.H; y++) for (x = 0; x < S.W; x++) {
+        var v = S.g[y][x]; if (!v) continue;
+        if (y < 2) continue;
+        var col = v === 1 ? body : v === 2 ? "#ecf0d6" : v === 4 ? tr.cheek : v === 5 ? hi : body;
+        rect(shadowG, ox + x, oy + y, "#1e2418");
+        var r = rect(petG, ox + x, oy + y, col);
+        if (v === 2) eyeCells.push([x, y, r]);
+      }
+      S.mouth.forEach(function (m) { var r = rect(petG, ox + m[0], oy + m[1], body); r.style.display = "none"; mouthRects.push(r); });
+      placePupil(0, 0);
+      scheduleBlink();
+      if (scene.eating && !reduced()) {
+        chompT = setInterval(function () { mouthRects.forEach(function (r) { r.style.display = r.style.display === "none" ? "" : "none"; }); }, 380);
+        coinT = setInterval(throwCoin, 2400); throwCoin();
+      }
+      petG.setAttribute("class", reduced() ? "" : "bob");
+    } else if (scene.kind === "egg" || scene.kind === "nest") {
+      ox = Math.floor((VW - 10) / 2); oy = GROUND + 1 - EGG.length;
+      var ghost = scene.kind === "nest";
+      for (y = 0; y < EGG.length; y++) for (x = 0; x < 10; x++) {
+        var ch = EGG[y].charAt(x); if (ch === ".") continue;
+        if (ghost) { if (ch === "#" && (x + y) % 2 === 0) rect(petG, ox + x, oy + y, "rgba(30,36,24,.45)"); continue; }
+        rect(shadowG, ox + x, oy + y, "#1e2418");
+        rect(petG, ox + x, oy + y, ch === "#" ? "#1e2418" : ch === "s" ? body : "#f6f4e2");
+      }
+      if (!ghost && scene.cracked) CRACK.forEach(function (c) { rect(petG, ox + c[0], oy + c[1], "#1e2418"); });
+      if (ghost) { for (x = -3; x < 13; x++) if (x % 3 !== 1) rect(petG, ox + x, GROUND, "#8a7a4a"); for (x = -2; x < 12; x += 2) rect(petG, ox + x, GROUND - 1, "#a08f58"); }
+      petG.setAttribute("class", !ghost && !reduced() ? "wob" : "");
+    } else if (scene.kind === "grave") {
+      ox = Math.floor((VW - 12) / 2); oy = GROUND + 1 - GRAVE.length + 1;
+      for (y = 0; y < GRAVE.length; y++) for (x = 0; x < 12; x++) {
+        var c2 = GRAVE[y].charAt(x); if (c2 === ".") continue;
+        if (c2 !== "m") rect(shadowG, ox + x, oy + y, "#1e2418");
+        rect(petG, ox + x, oy + y, c2 === "#" ? "#1e2418" : c2 === "m" ? "#9aa67a" : "#eef1dc");
+      }
+      petG.setAttribute("class", "");
+    }
+    stageEl.insertBefore(svg, bubble);
+  }
+  function placePupil(dx, dy) {
+    if (!sprRef) return;
+    pupilRects.forEach(function (r) { r.remove(); }); pupilRects = [];
+    var p = sprRef.pupil, eye = {};
+    eyeCells.forEach(function (e) { eye[e[0] + "," + e[1]] = 1; });
+    var ok = function (ddx, ddy) { return eye[(p[0] + ddx) + "," + (p[1] + ddy)] && eye[(p[0] + 1 + ddx) + "," + (p[1] + ddy)] && eye[(p[0] + ddx) + "," + (p[1] + 1 + ddy)] && eye[(p[0] + 1 + ddx) + "," + (p[1] + 1 + ddy)]; };
+    if (!ok(dx, dy)) { if (ok(dx, 0)) dy = 0; else if (ok(0, dy)) dx = 0; else { dx = 0; dy = 0; } }
+    pOff = [dx, dy];
+    var ink = "#1e2418";
+    [[0, 0], [1, 0], [0, 1], [1, 1]].forEach(function (q) {
+      var shine = q[0] === 1 && q[1] === 0;
+      pupilRects.push(rect(petG, base[0] + p[0] + dx + q[0], base[1] + p[1] + dy + q[1], shine ? "#ecf0d6" : ink));
+    });
+  }
+  function blink(closed) {
+    eyeCells.forEach(function (e) { e[2].setAttribute("fill", closed ? scene.tr.body : "#ecf0d6"); });
+    pupilRects.forEach(function (r) { r.style.display = closed ? "none" : ""; });
+  }
+  function scheduleBlink() {
+    blinkT = setTimeout(function () { blink(true); setTimeout(function () { blink(false); scheduleBlink(); }, 140); }, 2600 + Math.random() * 2800);
+  }
+  function throwCoin() {
+    if (!sprRef || !svg) return;
+    var g = el("g", {}, svg), m = sprRef.mouthAt;
+    var inner = el("g", { "class": "coinfly" }, g);
+    g.setAttribute("transform", "translate(" + (base[0] + m[0] + 1) + "," + (base[1] + m[1] - 2) + ") scale(.5)");
+    for (var y = 0; y < 6; y++) for (var x = 0; x < 6; x++) {
+      var ch = COIN[y].charAt(x); if (ch === ".") continue;
+      rect(inner, x, y, ch === "h" ? "#ffe482" : ch === "d" ? "#96620a" : "#f6b714");
+    }
+    setTimeout(function () { g.remove(); }, 1150);
+  }
+  function reduced() { return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
+  window.addEventListener("pointermove", function (e) {
+    if (!sprRef || !svg) return;
+    var b = svg.getBoundingClientRect(); if (!b.width) return;
+    var u = b.width / VW;
+    var cx = b.left + (base[0] + sprRef.pupil[0] + 1) * u, cy = b.top + (base[1] + sprRef.pupil[1] + 1) * u;
+    var dx = e.clientX - cx, dy = e.clientY - cy;
+    var nx = Math.abs(dx) < 30 ? 0 : dx > 0 ? 1 : -1, ny = Math.abs(dy) < 30 ? 0 : dy > 0 ? 1 : -1;
+    if (nx !== pOff[0] || ny !== pOff[1]) placePupil(nx, ny);
+  }, { passive: true });
+  function pet() {
+    if (reduced()) return;
+    for (var i = 0; i < 3; i++) {
+      var h = document.createElement("i"); h.className = "pop";
+      h.style.left = (46 + (i - 1) * 7) + "%"; h.style.top = "40%"; h.style.setProperty("--dx", ((i - 1) * 22) + "px");
+      h.style.animationDelay = (i * 90) + "ms";
+      stageEl.appendChild(h);
+      (function (n) { setTimeout(function () { n.remove(); }, 1200); })(h);
+    }
+    stageEl.dataset.petted = String((Number(stageEl.dataset.petted) || 0) + 1);
+  }
+  stageEl.addEventListener("click", pet);
+  stageEl.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pet(); } });
+
+  // ---------- data + UI ----------
+  var $ = function (id) { return document.getElementById(id); };
+  var statusEl = $("status"), form = $("hatchForm"), input = $("caIn");
+  var current = null, pollT = null, reqN = 0, nursery = null, nurseryP = null;
+
+  function setStatus(msg, err) { statusEl.textContent = msg || ""; statusEl.className = "status" + (err ? " err" : ""); }
+  function resetReadout() {
+    ["rFood", "rRate", "rVol", "rCap", "rMeal", "rAge"].forEach(function (k) { $(k).textContent = "—"; $(k).className = ""; });
+    $("lvlName").textContent = "level —"; $("lvlNext").textContent = "—";
+    [0, 1, 2].forEach(function (i) { $("m" + i).style.width = "0%"; });
+  }
+  function setHearts(n) { var hs = $("hearts").children; for (var i = 0; i < 3; i++) hs[i].className = i < n ? "" : "e"; $("hearts").setAttribute("aria-label", "hunger " + n + " of 3"); }
+  function setLinks(c, food, st, hu) {
+    var sh = $("shareBtn"), chb = $("chartBtn");
+    if (!c) { sh.setAttribute("aria-disabled", "true"); chb.setAttribute("aria-disabled", "true"); sh.href = "#hatch"; chb.href = "#hatch"; return; }
+    var name = c.symbol ? "$" + c.symbol : "this coin";
+    var what = hu.dead ? "starved into a gravestone" : st === 0 ? "is still an empty nest" : "hatched into a level " + st + " " + STAGES[st];
+    var text = name + " " + what + " on pet.fun. It ate about " + fmtSol(food) + " of fees in the last 24h.";
+    var url = location.origin + location.pathname + "?ca=" + encodeURIComponent(c.ca);
+    sh.href = "https://x.com/intent/post?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+    chb.href = c.url || ("https://dexscreener.com/solana/" + c.ca);
+    sh.removeAttribute("aria-disabled"); chb.removeAttribute("aria-disabled");
+  }
+  function render(c) {
+    var now = Date.now();
+    var food = estFood(c), st = stageOf(food), hu = hungerOf(c, now);
+    var mcapSol = c.marketCapUsd != null && c.solUsd ? c.marketCapUsd / c.solUsd : null;
+    var rate = creatorRate(c.dex, mcapSol);
+    var tr = traits(c.ca);
+    scene = { kind: hu.dead ? "grave" : st == null ? "nest" : ["nest", "egg", "baby", "grown"][st], tr: tr, eating: !!(c.txns && c.txns.m5 > 0), cracked: food != null && food >= 5 };
+    draw();
+    $("lcdName").textContent = (c.symbol ? "$" + c.symbol : "unnamed") + (c.name ? " · " + c.name : "");
+    setHearts(hu.hearts);
+    bubble.textContent = hu.say;
+    stageEl.setAttribute("aria-label", (c.symbol ? "$" + c.symbol : "the coin") + "'s pet: " + (hu.dead ? "a gravestone" : "a level " + st + " " + STAGES[st]) + ", " + hu.label);
+    stageEl.dataset.kind = scene.kind;
+    if (hu.dead) { $("lvlName").textContent = "gravestone"; $("lvlNext").textContent = "no meals for 24h"; }
+    else if (st == null) { $("lvlName").textContent = "level —"; $("lvlNext").textContent = "no price data yet"; }
+    else {
+      $("lvlName").textContent = "level " + st + " · " + STAGES[st];
+      $("lvlNext").textContent = st === 3 ? "fully grown" : fmtSol(food) + " / " + [1, 10, 100][st] + " SOL to " + ["lay the egg", "hatch", "grow up"][st];
+    }
+    var pr = progress(food); [0, 1, 2].forEach(function (i) { $("m" + i).style.width = (pr[i] * 100).toFixed(1) + "%"; });
+    $("rFood").textContent = food == null ? "—" : "≈ " + fmtSol(food);
+    $("rRate").textContent = rate == null ? "—" : fmtPct(rate) + " · " + (c.dex === "pumpfun" ? "bonding curve" : "PumpSwap");
+    $("rVol").textContent = c.volumeUsd && c.volumeUsd.h24 != null ? fmtUsd(c.volumeUsd.h24) + (c.solUsd ? " · " + fmtSol(c.volumeUsd.h24 / c.solUsd) : "") : "—";
+    $("rCap").textContent = fmtUsd(c.marketCapUsd);
+    $("rMeal").textContent = hu.label; $("rMeal").className = hu.hearts <= 1 ? "warn" : "";
+    $("rAge").textContent = c.createdAt ? fmtAge(now - c.createdAt) : "—";
+    var t = new Date(c.fetchedAt || now);
+    $("rSrc").textContent = "est. = 24h volume ÷ SOL price × today's fee tier · DexScreener · updated " + t.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    setLinks(c, food, st, hu);
+  }
+  function showCoin(c, opts) {
+    opts = opts || {};
+    var isNew = !current || current.ca !== c.ca;
+    current = c;
+    render(current);
+    if (isNew && !opts.quiet) fx();
+    if (!opts.quiet) setStatus(opts.auto ? "Showing a live coin from the nursery. Paste yours above." : "");
+    if (!opts.quiet && !opts.auto) {
+      input.value = current.ca;
+      try { history.replaceState(null, "", location.pathname + "?ca=" + encodeURIComponent(current.ca) + location.hash); } catch (e) {}
+      var dv = stageEl.getBoundingClientRect(); if (dv.bottom > innerHeight || dv.top < 0) $("device").scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+    }
+    markTiles();
+    clearInterval(pollT);
+    pollT = setInterval(function () { if (!document.hidden && current) hatch(current.ca, { quiet: true }); }, 30000);
+  }
+  function fx() {
+    if (reduced()) return;
+    var sc = stageEl.parentNode; sc.classList.remove("fx"); void sc.offsetWidth; sc.classList.add("fx");
+    stageEl.dataset.fx = String((Number(stageEl.dataset.fx) || 0) + 1);
+  }
+  function hatch(raw, opts) {
+    opts = opts || {};
+    var ca = extractCa(raw);
+    if (!ca) { setStatus("That isn't a Solana coin address. Paste a pump.fun address or link.", true); return Promise.resolve(false); }
+    var n = ++reqN;
+    if (!opts.quiet) setStatus("hatching...");
+    return fetch("/api/coin?ca=" + encodeURIComponent(ca)).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) { return { s: r.status, j: j }; });
+    }).then(function (res) {
+      if (n !== reqN) return false;
+      if (res.s === 400) { setStatus("That isn't a Solana coin address.", true); return false; }
+      if (res.s === 404) { setStatus("No pump.fun pool found for that coin. Only pump.fun coins hatch.", true); return false; }
+      if (res.s !== 200 || !res.j || !res.j.ca) { if (!opts.quiet) setStatus("DexScreener didn't answer. Try again in a moment.", true); return false; }
+      showCoin(res.j, opts);
+      return true;
+    }).catch(function () {
+      if (n !== reqN) return false;
+      if (!opts.quiet) setStatus("DexScreener didn't answer. Try again in a moment.", true);
+      return false;
+    });
+  }
+  form.addEventListener("submit", function (e) { e.preventDefault(); hatch(input.value); });
+  $("randBtn").addEventListener("click", function () {
+    var pick = function () {
+      var pool = (nursery || []).filter(function (c) { return !current || c.ca !== current.ca; });
+      if (!pool.length) { setStatus("No live coins to pick from right now. Paste an address instead.", true); return; }
+      showCoin(pool[Math.floor(Math.random() * pool.length)]);
+    };
+    if (nursery) { pick(); return; }
+    setStatus("finding a live coin...");
+    loadNursery().then(function (ok) { if (ok) pick(); else setStatus("Couldn't fetch live coins right now. Paste an address instead.", true); });
+  });
+  $("closeBtn").addEventListener("click", function () { setTimeout(function () { input.focus({ preventScroll: true }); }, 350); });
+
+  // nav + reveal
+  var nav = $("nav");
+  var onScroll = function () { nav.classList.toggle("stuck", window.scrollY > 8); };
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  var rvs = [].slice.call(document.querySelectorAll(".rv"));
+  if ("IntersectionObserver" in window && !reduced()) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("vis"); io.unobserve(en.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+    rvs.forEach(function (r) { io.observe(r); });
+    var sweep = function () { rvs.forEach(function (r) { if (r.getBoundingClientRect().top < innerHeight) r.classList.add("vis"); }); };
+    window.addEventListener("hashchange", function () { setTimeout(sweep, 60); }); setTimeout(sweep, 60);
+  } else rvs.forEach(function (r) { r.classList.add("vis"); });
+
+  // ---------- nursery: live pets in miniature ----------
+  function spriteCells(kind, tr) {
+    var cells = [], x, y, body = tr.body, hi = shade(body, .22);
+    if (kind === "grown" || kind === "baby") {
+      var S = kind === "grown" ? GROWN : BABY;
+      (SPROUT[tr.sprout] || SPROUT.leaf).forEach(function (c) { cells.push([S.top + c[0], c[1], c[2] === "g" ? "#f6b714" : body]); });
+      for (y = 2; y < S.H; y++) for (x = 0; x < S.W; x++) {
+        var v = S.g[y][x]; if (!v) continue;
+        cells.push([x, y, v === 2 ? "#ecf0d6" : v === 4 ? tr.cheek : v === 5 ? hi : body]);
+      }
+      [[0, 0], [0, 1], [1, 1]].forEach(function (q) { cells.push([S.pupil[0] + q[0], S.pupil[1] + q[1], "#1e2418"]); });
+    } else if (kind === "egg" || kind === "nest") {
+      for (y = 0; y < EGG.length; y++) for (x = 0; x < 10; x++) {
+        var ch = EGG[y].charAt(x); if (ch === ".") continue;
+        if (kind === "nest") { if (ch === "#" && (x + y) % 2 === 0) cells.push([x, y, "rgba(30,36,24,.45)"]); }
+        else cells.push([x, y, ch === "#" ? "#1e2418" : ch === "s" ? body : "#f6f4e2"]);
+      }
+    } else {
+      for (y = 0; y < GRAVE.length - 1; y++) for (x = 0; x < 12; x++) { var c2 = GRAVE[y].charAt(x); if (c2 !== ".") cells.push([x, y, c2 === "#" ? "#1e2418" : "#eef1dc"]); }
+    }
+    return cells;
+  }
+  function miniSvg(kind, tr) {
+    var cells = spriteCells(kind, tr), mx = 0, my = 0;
+    cells.forEach(function (c) { if (c[0] > mx) mx = c[0]; if (c[1] > my) my = c[1]; });
+    var W = Math.max(mx + 1, my + 1, 12), s = el("svg", { viewBox: (-(W - mx - 1) / 2) + " " + (-(W - my - 1) - .5) + " " + W + " " + (W + 1), "shape-rendering": "crispEdges", "aria-hidden": "true" });
+    cells.forEach(function (c) { rect(s, c[0], c[1], c[2]); });
+    return s;
+  }
+  function kindOf(c) {
+    var food = estFood(c), st = stageOf(food), hu = hungerOf(c, Date.now());
+    return { kind: hu.dead ? "grave" : st == null ? "nest" : STAGES[st], food: food, st: st, dead: !!hu.dead };
+  }
+  function markTiles() {
+    [].forEach.call(document.querySelectorAll(".ntile"), function (t) { t.setAttribute("aria-pressed", current && t.dataset.ca === current.ca ? "true" : "false"); });
+  }
+  function renderNursery() {
+    var grid = $("nGrid"); grid.textContent = "";
+    nursery.slice(0, 8).forEach(function (c) {
+      var k = kindOf(c);
+      var b = document.createElement("button"); b.type = "button"; b.className = "ntile"; b.dataset.ca = c.ca; b.dataset.kind = k.kind;
+      var sc = document.createElement("div"); sc.className = "nscr"; sc.appendChild(miniSvg(k.kind, traits(c.ca)));
+      var nm = document.createElement("div"); nm.className = "nsym"; nm.textContent = c.symbol ? "$" + c.symbol : "unnamed";
+      var lv = document.createElement("div"); lv.className = "nlv"; lv.textContent = k.dead ? "gravestone" : k.st == null ? "no data" : STAGES[k.st] + " · lvl " + k.st;
+      var fd = document.createElement("div"); fd.className = "nlv"; fd.textContent = k.dead ? "no meals in 24h" : k.food == null ? "—" : "≈ " + fmtSol(k.food) + " / 24h";
+      b.appendChild(sc); b.appendChild(nm); b.appendChild(lv); b.appendChild(fd);
+      b.setAttribute("aria-label", "show the pet of " + nm.textContent);
+      b.addEventListener("click", function () { showCoin(c); });
+      grid.appendChild(b);
+    });
+    var t = new Date(); $("nNote").textContent = "pump.fun coins trending on DexScreener · " + t.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    markTiles();
+  }
+  function loadNursery() {
+    if (nurseryP) return nurseryP;
+    nurseryP = fetch("/api/nursery").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (j) {
+      if (!j || !j.coins || !j.coins.length) throw new Error("empty");
+      nursery = j.coins; renderNursery(); return true;
+    }).catch(function () {
+      nurseryP = null;
+      $("nGrid").textContent = ""; $("nNote").textContent = "the nursery is offline right now. Paste a coin above instead.";
+      $("nursery").classList.add("off");
+      return false;
+    });
+    return nurseryP;
+  }
+  function bestPick() {
+    var best = null, bs = -1;
+    (nursery || []).forEach(function (c) { var k = kindOf(c); var sc = k.dead || k.st == null ? -1 : k.st * 1000 + Math.min(999, k.food || 0); if (sc > bs) { bs = sc; best = c; } });
+    return best;
+  }
+
+  // ---------- brand mark, favicon and card icons, drawn from the same sprites ----------
+  function pathsSvg(target, cells, gap) {
+    var by = {}, order = [];
+    cells.forEach(function (c) { if (!by[c[2]]) { by[c[2]] = []; order.push(c[2]); } by[c[2]].push(c); });
+    var sz = 1 - 2 * gap, out = "";
+    order.forEach(function (col) {
+      var d = by[col].map(function (c) { return "M" + (c[0] + gap) + " " + (c[1] + gap) + "h" + sz + "v" + sz + "h-" + sz + "z"; }).join("");
+      if (target) el("path", { fill: col, d: d }, target);
+      out += "<path fill='" + col + "' d='" + d + "'/>";
+    });
+    return out;
+  }
+  var BRAND_TR = { body: "#1e2418", cheek: "#e27860", sprout: "leaf" };
+  var coinCells = [];
+  COIN.forEach(function (row, y) { for (var x = 0; x < 6; x++) { var ch = row.charAt(x); if (ch !== ".") coinCells.push([16 + x, 9 + y, ch === "h" ? "#ffe482" : ch === "d" ? "#96620a" : "#f6b714"]); } });
+  var brandCells = spriteCells("grown", BRAND_TR).filter(function (c) { return !(c[0] >= 16 && c[1] >= 9 && c[1] <= 14); }).concat(coinCells);
+  pathsSvg($("brandMark"), brandCells, .06);
+  try {
+    var fav = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -2 28 28' shape-rendering='crispEdges'><rect x='-2' y='-2' width='28' height='28' rx='6' fill='#cdd6a8'/>" + pathsSvg(null, brandCells, 0) + "</svg>";
+    document.querySelector("link[rel=icon]").setAttribute("href", "data:image/svg+xml," + encodeURIComponent(fav));
+  } catch (e) {}
+  var ICONS = {
+    egg: spriteCells("egg", BRAND_TR),
+    grave: spriteCells("grave", BRAND_TR),
+    coin: coinCells.map(function (c) { return [c[0] - 16, c[1] - 9, c[2]]; })
+  };
+  [].forEach.call(document.querySelectorAll("svg.icn"), function (s) {
+    var cells = ICONS[s.getAttribute("data-icon")] || [], mx = 0, my = 0;
+    cells.forEach(function (c) { mx = Math.max(mx, c[0]); my = Math.max(my, c[1]); });
+    var W = Math.max(mx, my) + 3;
+    s.setAttribute("viewBox", (-(W - mx - 1) / 2) + " " + (-(W - my - 1) / 2) + " " + W + " " + W);
+    pathsSvg(s, cells, .06);
+  });
+
+  // start: the coin in the link, else the liveliest pet in the nursery, else the demo pet
+  draw();
+  resetReadout();
+  var q = new URLSearchParams(location.search).get("ca");
+  if (q) { input.value = q; hatch(q); }
+  loadNursery().then(function (ok) { if (ok && !q && !current && reqN === 0) { var b = bestPick(); if (b) showCoin(b, { auto: true }); } });
+})();
+</script>
+</body>
+</html>
